@@ -3,7 +3,7 @@ from pygame.event import get as event_get
 
 from const import color, project
 from handler import Quit
-from manager import HandlerManager, KeyManager, StateManager
+from manager import HandlerManager, KeyManager, StateManager, MouseManager
 from screen import Display
 from state import INTRO
 
@@ -17,9 +17,10 @@ class Game:
         self.display = Display(1920, 1080, project.NAME)
 
         self.key_manager = KeyManager()
+        self.mouse_manager = MouseManager()
         self.state_manager = StateManager().set_state(INTRO)
 
-        self.handler_manager = HandlerManager().add(Quit(self.shutdown)).add(self.key_manager)
+        self.handler_manager = HandlerManager().add(Quit(self.shutdown)).add(self.key_manager).add(self.mouse_manager)
 
     def shutdown(self):
         self.running = False
@@ -29,7 +30,7 @@ class Game:
             self.handler_manager.handle(event)
 
     def tick(self):
-        pass
+        self.mouse_manager.tick()
 
     def render(self, surface: Surface):
         surface.fill(color.WHITE)
