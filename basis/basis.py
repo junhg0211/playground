@@ -15,7 +15,7 @@ class Basis:
         self.key_manager = KeyManager()
         self.mouse_manager = MouseManager()
         self.objet_manager = ObjetManager()
-        self.state_manager = StateManager(self.mouse_manager)
+        self.state_manager = StateManager(self.mouse_manager, self.display)
         self.keyboard_buffer = KeyboardBuffer()
         self.handler_manager = HandlerManager().add(self.mouse_manager).add(self.key_manager).add(self.keyboard_buffer)
 
