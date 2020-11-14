@@ -2,7 +2,7 @@ from pygame import Surface, display, init as pygame_init
 from pygame.event import get as event_get
 
 from const import color, project
-from handler import Quit
+from handler import Quit, KeyboardBuffer
 from manager import HandlerManager, KeyManager, StateManager, MouseManager
 from screen import Display
 from state import INTRO
@@ -20,7 +20,13 @@ class Game:
         self.mouse_manager = MouseManager()
         self.state_manager = StateManager().set_state(INTRO)
 
-        self.handler_manager = HandlerManager().add(Quit(self.shutdown)).add(self.key_manager).add(self.mouse_manager)
+        self.keyboard_buffer = KeyboardBuffer()
+
+        self.handler_manager = HandlerManager()\
+            .add(Quit(self.shutdown))\
+            .add(self.key_manager)\
+            .add(self.mouse_manager)\
+            .add(self.keyboard_buffer)
 
     def shutdown(self):
         self.running = False
