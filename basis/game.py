@@ -3,7 +3,7 @@ from pygame.event import get as event_get
 
 from const import color, project
 from handler import Quit, KeyboardBuffer
-from manager import HandlerManager, KeyManager, StateManager, MouseManager
+from manager import HandlerManager, KeyManager, StateManager, MouseManager, ObjetManager
 from screen import Display
 from state import INTRO
 
@@ -19,6 +19,7 @@ class Game:
         self.key_manager = KeyManager()
         self.mouse_manager = MouseManager()
         self.state_manager = StateManager().set_state(INTRO)
+        self.objet_manager = ObjetManager(self.key_manager)
 
         self.keyboard_buffer = KeyboardBuffer()
 
@@ -37,9 +38,12 @@ class Game:
 
     def tick(self):
         self.mouse_manager.tick()
+        self.objet_manager.tick()
 
     def render(self, surface: Surface):
         surface.fill(color.WHITE)
+
+        self.objet_manager.render(surface)
 
         display.flip()
 
