@@ -27,6 +27,7 @@ class Basis:
             self.handler_manager.handle(event)
 
     def tick(self):
+        self.display.tick()
         self.mouse_manager.tick()
         self.state_manager.tick()
         self.objet_manager.tick()
