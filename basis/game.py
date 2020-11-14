@@ -22,10 +22,10 @@ class Game:
 
         self.keyboard_buffer = KeyboardBuffer()
 
-        self.handler_manager = HandlerManager()\
-            .add(Quit(self.shutdown))\
-            .add(self.key_manager)\
-            .add(self.mouse_manager)\
+        self.handler_manager = HandlerManager() \
+            .add(Quit(self.shutdown)) \
+            .add(self.key_manager) \
+            .add(self.mouse_manager) \
             .add(self.keyboard_buffer)
 
     def shutdown(self):
