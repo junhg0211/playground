@@ -1,6 +1,8 @@
 from pygame import Surface
 
+from manager import MouseManager
 from objet import Objet
+from objet.click_area import UnderlinedClickArea
 from util import TextFormat
 
 
@@ -14,3 +16,18 @@ class Text(Objet):
 
     def render(self, surface: Surface):
         surface.blit(self.surface, (self.x, self.y))
+
+
+class TextButton(Text):
+    def __init__(self, x: int, y: int, text: str, text_format: TextFormat, runnable, mouse_manager: MouseManager):
+        super().__init__(x, y, text, text_format)
+
+        self.click_area = UnderlinedClickArea(x, y, self.surface.get_width(), self.surface.get_height(), runnable,
+                                              self.text_format.color, mouse_manager)
+
+    def tick(self):
+        self.click_area.tick()
+
+    def render(self, surface: Surface):
+        super().render(surface)
+        self.click_area.render(surface)

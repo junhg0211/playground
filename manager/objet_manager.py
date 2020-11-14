@@ -1,12 +1,10 @@
 from pygame import Surface
 
-from manager import KeyManager
 from objet import Objet
 
 
 class ObjetManager:
-    def __init__(self, key_manager: KeyManager):
-        self.key_manager = key_manager
+    def __init__(self):
         self.objets = list()
 
     def add(self, objet: Objet):

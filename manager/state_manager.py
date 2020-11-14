@@ -1,10 +1,14 @@
 from pygame import Surface
 
-from state import INTRO, Intro
+from manager import MouseManager
+from state import GAME_INTRO, DESIGNER_LOBBY
+from state.designer import Lobby
+from state.game import Intro
 
 
 class StateManager:
-    def __init__(self):
+    def __init__(self, mouse_manager: MouseManager):
+        self.mouse_manager = mouse_manager
         self.state = None
 
     def tick(self):
@@ -16,7 +20,9 @@ class StateManager:
             self.state.render(surface)
 
     def set_state(self, code: int, *args):
-        if code == INTRO:
+        if code == GAME_INTRO:
             self.state = Intro()
+        elif code == DESIGNER_LOBBY:
+            self.state = Lobby(self.mouse_manager)
 
         return self
