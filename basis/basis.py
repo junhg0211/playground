@@ -17,7 +17,7 @@ class Basis:
         self.objet_manager = ObjetManager()
         self.state_manager = StateManager(self.mouse_manager)
         self.keyboard_buffer = KeyboardBuffer()
-        self.handler_manager = HandlerManager()
+        self.handler_manager = HandlerManager().add(self.mouse_manager).add(self.key_manager).add(self.keyboard_buffer)
 
     def shutdown(self):
         self.running = False

@@ -12,9 +12,6 @@ class Game(Basis):
         self.state_manager.set_state(GAME_INTRO)
         self.handler_manager \
             .add(Quit(self.shutdown)) \
-            .add(self.key_manager) \
-            .add(self.mouse_manager) \
-            .add(self.keyboard_buffer) \
             .add(HUDManager(self.handler_manager, self.objet_manager))
 
     def shutdown(self):
