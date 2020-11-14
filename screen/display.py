@@ -19,8 +19,8 @@ class Display:
         now = time()
 
         try:
-            self.fps = 1 / now - self.previous_time
+            self.fps = 1 / (now - self.previous_time)
         except ZeroDivisionError:
             self.fps = inf
 
-        self.previous_time = time()
+        self.previous_time = now

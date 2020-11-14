@@ -1,4 +1,11 @@
-def lerp(start: float, end: float, friction: float = 6.0) -> float:
+DEFAULT_LERP_FRICTION = 0.1
+
+
+def get_lerp_friction(fps: float, friction: float = DEFAULT_LERP_FRICTION) -> float:
+    return friction * fps
+
+
+def lerp(start: float, end: float, friction: float = DEFAULT_LERP_FRICTION) -> float:
     return (end - start) / friction + start
 
 
