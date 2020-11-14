@@ -18,7 +18,9 @@ class Lobby(State):
         button_text_format = TextFormat(font.DALMOORI, 32, color.BLACK)
 
         self.objet_manager = ObjetManager() \
-            .add(TextButton(64, 192, '캐릭터 디자인', button_text_format, lambda: None, self.mouse_manager, display))
+            .add(TextButton(64, 192, '캐릭터 디자인', button_text_format, lambda: None, self.mouse_manager, display)) \
+            .add(TextButton(64, 256, '맵 디자인', button_text_format, lambda: None, self.mouse_manager, display)) \
+            .add(TextButton(64, 320, '종료', button_text_format, exit, self.mouse_manager, display))
 
     def tick(self):
         self.objet_manager.tick()
