@@ -3,7 +3,7 @@ from pygame.event import get as event_get
 
 from const import color, project
 from handler import Quit, KeyboardBuffer
-from manager import HandlerManager, KeyManager, StateManager, MouseManager, ObjetManager
+from manager import HandlerManager, KeyManager, StateManager, MouseManager, ObjetManager, HUDManager
 from screen import Display
 from state import INTRO
 
@@ -28,6 +28,7 @@ class Game:
             .add(self.key_manager) \
             .add(self.mouse_manager) \
             .add(self.keyboard_buffer)
+        self.handler_manager.add(HUDManager(self.handler_manager, self.objet_manager))
 
     def shutdown(self):
         self.running = False
