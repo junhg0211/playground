@@ -1,18 +1,9 @@
-from pygame import Surface
+from basis import Basis
+from const import project
+from handler import Quit
 
-from basis import Game
 
-
-class Designer(Game):
-    # noinspection PyMissingConstructor
+class Designer(Basis):
     def __init__(self):
-        self.running = False
-
-    def handle(self):
-        pass
-
-    def tick(self):
-        pass
-
-    def render(self, surface: Surface):
-        pass
+        super().__init__(1920, 1080, f'{project.NAME} - Designer')
+        self.handler_manager.add(Quit(self.shutdown))

@@ -1,52 +1,24 @@
-from pygame import Surface, display, init as pygame_init
-from pygame.event import get as event_get
+from basis import Basis
+from const import project
 
-from const import color, project
-from handler import Quit, KeyboardBuffer
-from manager import HandlerManager, KeyManager, StateManager, MouseManager, ObjetManager, HUDManager
-from screen import Display
+from handler import Quit
+from manager import HUDManager
 from state import INTRO
 
 
-class Game:
+class Game(Basis):
     def __init__(self):
-        pygame_init()
-
-        self.running = False
-
-        self.display = Display(1920, 1080, project.NAME)
-
-        self.key_manager = KeyManager()
-        self.mouse_manager = MouseManager()
-        self.state_manager = StateManager().set_state(INTRO)
-        self.objet_manager = ObjetManager(self.key_manager)
-
-        self.keyboard_buffer = KeyboardBuffer()
-
-        self.handler_manager = HandlerManager() \
+        super().__init__(1920, 1080, project.NAME)
+        self.state_manager.set_state(INTRO)
+        self.handler_manager \
             .add(Quit(self.shutdown)) \
             .add(self.key_manager) \
             .add(self.mouse_manager) \
-            .add(self.keyboard_buffer)
-        self.handler_manager.add(HUDManager(self.handler_manager, self.objet_manager))
+            .add(self.keyboard_buffer) \
+            .add(HUDManager(self.handler_manager, self.objet_manager))
 
     def shutdown(self):
         self.running = False
-
-    def handle(self):
-        for event in event_get():
-            self.handler_manager.handle(event)
-
-    def tick(self):
-        self.mouse_manager.tick()
-        self.objet_manager.tick()
-
-    def render(self, surface: Surface):
-        surface.fill(color.WHITE)
-
-        self.objet_manager.render(surface)
-
-        display.flip()
 
     def start(self):
         self.running = True

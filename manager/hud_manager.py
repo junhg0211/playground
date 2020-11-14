@@ -1,5 +1,5 @@
 from pygame.constants import KEYDOWN, K_F3
-from pygame.event import EventType
+from pygame.event import Event
 
 from handler import Handler
 from manager import ObjetManager, HandlerManager
@@ -12,7 +12,7 @@ class HUDManager(Handler):
         self.hud_enabled = False
         self.hud = HUD(handler_manager)
 
-    def handle(self, event: EventType):
+    def handle(self, event: Event):
         if event.type == KEYDOWN:
             if event.key == K_F3:
                 if self.hud_enabled:

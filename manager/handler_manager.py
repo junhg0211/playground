@@ -1,4 +1,4 @@
-from pygame.event import EventType
+from pygame.event import Event
 
 from handler import Handler
 
@@ -11,6 +11,6 @@ class HandlerManager:
         self.handlers.append(handler)
         return self
 
-    def handle(self, event: EventType):
+    def handle(self, event: Event):
         for handler in self.handlers:
             handler.handle(event)

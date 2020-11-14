@@ -1,5 +1,5 @@
 from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP, MOUSEMOTION
-from pygame.event import EventType
+from pygame.event import Event
 
 from handler import Handler
 
@@ -21,7 +21,7 @@ class MouseManager(Handler):
         self.end_wheel = False
         self.end_right = False
 
-    def handle(self, event: EventType):
+    def handle(self, event: Event):
         if event.type == MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.left = True

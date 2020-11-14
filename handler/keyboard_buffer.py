@@ -1,5 +1,5 @@
 from pygame import KEYDOWN, K_BACKSPACE
-from pygame.event import EventType
+from pygame.event import Event
 
 from handler import Handler
 
@@ -13,7 +13,7 @@ class KeyboardBuffer(Handler):
         self.buffer = ''
         return result
 
-    def handle(self, event: EventType):
+    def handle(self, event: Event):
         if event.type == KEYDOWN:
             if event.key == K_BACKSPACE:
                 self.buffer = self.buffer[:-1]

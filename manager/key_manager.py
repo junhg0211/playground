@@ -1,5 +1,5 @@
 from pygame import KEYDOWN, KEYUP
-from pygame.event import EventType
+from pygame.event import Event
 
 from handler import Handler
 
@@ -20,7 +20,7 @@ class KeyManager(Handler):
     def is_end_key(self, key: int) -> bool:
         return key in self.end_keys
 
-    def handle(self, event: EventType):
+    def handle(self, event: Event):
         if event.type == KEYDOWN:
             self.keys.add(event.key)
         elif event.type == KEYUP:
