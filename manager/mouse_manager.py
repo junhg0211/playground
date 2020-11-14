@@ -44,8 +44,8 @@ class MouseManager(Handler):
         self.start_wheel = not self.previous_wheel and self.wheel
         self.start_right = not self.previous_right and self.right
         self.end_left = self.previous_left and not self.left
-        self.end_left = self.previous_left and not self.wheel
-        self.end_left = self.previous_left and not self.right
+        self.end_wheel = self.previous_left and not self.wheel
+        self.end_right = self.previous_left and not self.right
         self.previous_left = self.left
         self.previous_wheel = self.wheel
         self.previous_right = self.right
