@@ -10,15 +10,14 @@ class HUD(Objet):
     def __init__(self, handler_manager: HandlerManager):
         super().__init__(0, 0)
         self.handler_manager = handler_manager
-        self.height = 12
+        self.height = 16
         self.text_format = TextFormat(font.DALMOORI, self.height, color.WHITE)
         self.surfaces = list()
 
     def tick(self):
         string = f'핸들러 수 {len(self.handler_manager.handlers)}개'
 
-        for line in string.split('\n'):
-            self.surfaces.append(self.text_format.render(line))
+        self.surfaces = [self.text_format.render(line) for line in string.split('\n')]
 
     def render(self, surface: Surface):
         for i in range(len(self.surfaces)):
