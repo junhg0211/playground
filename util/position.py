@@ -6,7 +6,10 @@ def get_lerp_friction(fps: float, friction: float = DEFAULT_LERP_FRICTION) -> fl
 
 
 def lerp(start: float, end: float, friction: float = DEFAULT_LERP_FRICTION) -> float:
-    return (end - start) / friction + start
+    try:
+        return (end - start) / friction + start
+    except ZeroDivisionError:
+        return start
 
 
 def center(large: float, small: float) -> float:
