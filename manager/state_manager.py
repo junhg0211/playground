@@ -1,6 +1,7 @@
 from pygame import Surface
 
-from manager import MouseManager
+from handler import KeyboardBuffer
+from manager import MouseManager, KeyManager
 from screen import Display
 from state import GAME_INTRO, DESIGNER_LOBBY, DESIGNER_CHARACTER
 from state.designer import Lobby
@@ -9,8 +10,11 @@ from state.game import Intro
 
 
 class StateManager:
-    def __init__(self, mouse_manager: MouseManager, display: Display):
+    def __init__(self, mouse_manager: MouseManager, key_manager: KeyManager, keyboard_buffer: KeyboardBuffer,
+                 display: Display):
         self.mouse_manager = mouse_manager
+        self.key_manager = key_manager
+        self.keyboard_buffer = keyboard_buffer
         self.display = display
         self.state = None
 
@@ -26,8 +30,8 @@ class StateManager:
         if code == GAME_INTRO:
             self.state = Intro()
         elif code == DESIGNER_LOBBY:
-            self.state = Lobby(self.mouse_manager, self, self.display)
+            self.state = Lobby(self.mouse_manager, self.key_manager, self.keyboard_buffer, self, self.display)
         elif code == DESIGNER_CHARACTER:
-            self.state = Character()
+            self.state = Character(*args)
 
         return self

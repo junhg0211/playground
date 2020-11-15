@@ -11,7 +11,7 @@ from util import TextFormat, lerp, get_lerp_friction
 class FixedEntry(Objet):
     def __init__(self, x: int, y: int, width: int, text_format: TextFormat, mouse_manager: MouseManager,
                  key_manager: KeyManager, keyboard_buffer: KeyboardBuffer, display: Display,
-                 initial_string: str = 'None'):
+                 initial_string: str = 'None', string_test=None):
         super().__init__(x, y)
         self.width = width
         self.text_format = text_format
@@ -20,12 +20,19 @@ class FixedEntry(Objet):
         self.keyboard_buffer = keyboard_buffer
         self.display = display
         self.string = initial_string
+        self.string_test = string_test
         self.inserting = False
         self.click_area = UnderlinedClickArea(self.x, self.y, self.width, self.text_format.size, self.start_insert,
                                               self.text_format.color, self.mouse_manager, self.display)
-        self.previous_string = self.string
         self.surface = self.refresh_surface()
         self.underline_length = 0
+        self.previous_string = self.string
+        self.pre_edited_string = self.string
+
+    def set_text(self, text: str):
+        self.string = text
+        self.refresh_surface()
+        return self
 
     def refresh_surface(self) -> Surface:
         self.surface = self.text_format.render(self.string)
@@ -33,6 +40,7 @@ class FixedEntry(Objet):
 
     def start_insert(self):
         self.inserting = True
+        self.pre_edited_string = self.string
         self.keyboard_buffer.regurgitate()
 
     def tick(self):
@@ -48,7 +56,10 @@ class FixedEntry(Objet):
                     or self.key_manager.is_start_key(K_RETURN) \
                     or self.key_manager.is_start_key(K_KP_ENTER) \
                     or not self.click_area.mouse_on() and self.mouse_manager.end_left:
-                self.inserting = False
+                if self.string_test is not None and not self.string_test(self.string):
+                    self.string = self.pre_edited_string
+                else:
+                    self.inserting = False
         else:
             if self.underline_length < 1:
                 self.underline_length = 0
