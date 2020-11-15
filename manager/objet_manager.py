@@ -12,7 +12,8 @@ class ObjetManager:
         return self
 
     def remove(self, objet: Objet):
-        self.objets.remove(objet)
+        if objet in self.objets:
+            self.objets.remove(objet)
         return self
 
     def tick(self):
