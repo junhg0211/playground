@@ -2,4 +2,4 @@ from state import State
 
 
 class Intro(State):
-    pass
+    """스플래시 화면 State-입니다."""

@@ -7,6 +7,11 @@ from objet import HUD
 
 
 class HUDManager(Handler):
+    """
+    HUD-를 껐다켰다하는 클래스입니다.
+    F3키를 누르면 HUD-를 hud_manager.objet_manager-에 토글-추가합니다.
+    """
+
     def __init__(self, handler_manager: HandlerManager, objet_manager: ObjetManager):
         self.objet_manager = objet_manager
         self.hud_enabled = False

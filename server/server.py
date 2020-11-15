@@ -2,6 +2,9 @@ from socket import socket
 from threading import Thread
 
 
+# todo make this and complete its docstring.
+
+
 class ServerClient(Thread):
     def __init__(self, conn: socket, addr: tuple, server):
         super().__init__()

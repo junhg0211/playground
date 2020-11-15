@@ -11,10 +11,13 @@ from util import TextFormat
 
 
 class Lobby(State):
+    """디자이너 프로그램의 시작 State-입니다."""
+
     def __init__(self, mouse_manager: MouseManager, key_manager: KeyManager, keyboard_buffer: KeyboardBuffer,
                  state_manager, display: Display):
-        self.title = Text(64, 64, '디자이너', TextFormat(font.DALMOORI, 72, color.BLACK))
         self.state_manager = state_manager
+
+        self.title = Text(64, 64, '디자이너', TextFormat(font.DALMOORI, 72, color.BLACK))
 
         button_text_format = TextFormat(font.DALMOORI, 32, color.BLACK)
 
@@ -30,6 +33,11 @@ class Lobby(State):
             .add(TextButton(64, 320, '종료', button_text_format, exit, mouse_manager, display))
 
     def on_character_pressed(self):
+        """
+        '캐릭터 디자인' 키가 클릭되었을 때 실행되는 메소드입니다.
+        TODO self.character_name_entry.string-의 값이 사용 가능한지 확인한 후 state_manager.set_state(...)를 실행합니다.
+        """
+
         self.state_manager.set_state(DESIGNER_CHARACTER, self.character_name_entry.string)
 
     def tick(self):

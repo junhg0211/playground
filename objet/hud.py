@@ -8,6 +8,10 @@ from util import TextFormat
 
 class HUD(Objet):
     def __init__(self, handler_manager: HandlerManager):
+        """
+        :ivar self.surfaces: 화면에 띄울 HUD-의 한줄한줄의 Surface-를 포함합니다.
+        """
+
         super().__init__(0, 0)
         self.handler_manager = handler_manager
         self.text_format = TextFormat(font.DALMOORI, 16, color.WHITE)

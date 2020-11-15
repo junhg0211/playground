@@ -8,6 +8,8 @@ from util import TextFormat
 
 
 class Notification:
+    """화면에 일정한 시간동안 노출시키는 문장(Notification, 알림)입니다."""
+
     BACKGROUND_COLOR = color.BLACK
     TEXT_FORMAT = None
     MARGIN = 8
@@ -16,21 +18,42 @@ class Notification:
 
     @staticmethod
     def init():
+        """
+        알림의 TEXT_FORMAT-을 지정합니다.
+        pygame.init() 후에 한 번 이상 실행되어야 합니다.
+        """
+
         Notification.TEXT_FORMAT = TextFormat(font.DALMOORI, 16, color.WHITE)
 
     def __init__(self, text: str, duration: float):
+        """
+        :ivar :param text: 알림의 내용
+        :ivar :param duration: 알림을 띄워놓을 시간 [초]
+        :ivar self.started_time: 알림을 띄우기 시작한 시각
+        :ivar self.expire_time: 알림 띄우기를 종료하는 시각
+        """
         self.text = text
-        self.started_time = datetime.now()
         self.duration = timedelta(seconds=duration)
+        self.started_time = datetime.now()
         self.expire_time = self.started_time + self.duration
 
     def is_expired(self) -> bool:
+        """:return: 알림 띄우기가 종료되었는지 여부"""
+
         return self.expire_time <= datetime.now()
 
     def progress(self) -> float:
+        """:return: 알림 띄우기의 시작부터 종료까지에 대해 현재 시각을 0과 1 사이의 실수로 나타낸 값"""
+
         return (datetime.now() - self.started_time) / self.duration
 
-    def render(self):
+    def render(self) -> Surface:
+        """
+        notification.render()는 notification_manager.render()에서 올바른 위치에 배치되어 화면에 보이게 됩니다.
+
+        :return: 화면에 보일 알림 창
+        """
+
         words = self.text.split(' ')
         line = str()
         text_surfaces = list()
@@ -59,10 +82,11 @@ class Notification:
 
 
 class NotificationManager:
-    def __init__(self, display: Display):
+    """Notification(알림)을 저장하고 관리하는 클래스입니다."""
+
+    def __init__(self):
+        """:ivar self.notifications: notification_manager-에 등록된 알림을 보관하는 장소입니다."""
         self.notifications = list()
-        self.display = display
-        self.x = self.display.width - Notification.MARGIN * 3 - Notification.MAX_WIDTH
 
     def add(self, notification: Notification):
         self.notifications.append(notification)
@@ -77,11 +101,19 @@ class NotificationManager:
             self.notifications.remove(deleted_notification)
 
     def render(self, surface: Surface):
-        y = self.display.height - Notification.MARGIN
+        """
+        surface-의 오른쪽 아래부터 위로 self.notifications-의 Notification-들을 표시합니다.
+        위에 있는 알림이 가장 최신의 알림입니다.
+
+        :param surface: 알림을 표시할 Surface-입니다.
+        """
+
+        x = surface.get_width() - Notification.MARGIN * 3 - Notification.MAX_WIDTH
+        y = surface.get_height() - Notification.MARGIN
         for notification in self.notifications:
             notification_surface = notification.render()
             y -= notification_surface.get_height() + Notification.MARGIN
-            surface.blit(notification_surface, (self.x, y))
+            surface.blit(notification_surface, (x, y))
             if y <= 0:
                 break
 

@@ -5,7 +5,15 @@ from pygame import display
 
 
 class Display:
+    """basis-의 창(window) 클래스입니다."""
+
     def __init__(self, width: int, height: int, caption: str):
+        """
+        :param caption: 창의 캡션
+        :ivar self.fps: 이전 프레임에서의 프레임레이트
+        :ivar self.previous_time: 이전 프레임의 시각
+        """
+
         self.width = width
         self.height = height
 

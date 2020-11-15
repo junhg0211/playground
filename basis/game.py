@@ -5,6 +5,8 @@ from state import GAME_INTRO
 
 
 class Game(Basis):
+    """Playground-게임의 Basis-입니다."""
+
     def __init__(self):
         super().__init__(1920, 1080, project.NAME)
         self.state_manager.set_state(GAME_INTRO)
