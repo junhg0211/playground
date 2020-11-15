@@ -4,3 +4,4 @@ from .mouse_manager import MouseManager
 from .objet_manager import ObjetManager
 from .state_manager import StateManager
 from .hud_manager import HUDManager
+from .notification_manager import NotificationManager

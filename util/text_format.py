@@ -13,3 +13,5 @@ class TextFormat:
     def render(self, text: str) -> Surface:
         return self.font.render(text, True, self.color)
 
+    def get_width(self, text: str) -> int:
+        return self.render(text).get_width()
