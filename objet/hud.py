@@ -10,8 +10,7 @@ class HUD(Objet):
     def __init__(self, handler_manager: HandlerManager):
         super().__init__(0, 0)
         self.handler_manager = handler_manager
-        self.height = 16
-        self.text_format = TextFormat(font.DALMOORI, self.height, color.WHITE)
+        self.text_format = TextFormat(font.DALMOORI, 16, color.WHITE)
         self.surfaces = list()
 
     def tick(self):
@@ -21,6 +20,6 @@ class HUD(Objet):
 
     def render(self, surface: Surface):
         for i in range(len(self.surfaces)):
-            y = self.y + self.height * i
-            draw.rect(surface, color.BLACK, ((self.x, y), (self.surfaces[i].get_width(), self.height)))
+            y = self.y + self.text_format.size * i
+            draw.rect(surface, color.BLACK, ((self.x, y), (self.surfaces[i].get_width(), self.text_format.size)))
             surface.blit(self.surfaces[i], (self.x, y))
