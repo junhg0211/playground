@@ -2,8 +2,8 @@ from pygame import Surface, init as pygame_init, display
 from pygame.event import get as event_get
 
 from const import color
-from handler import KeyboardBuffer
-from manager import KeyManager, MouseManager, StateManager, ObjetManager, HandlerManager
+from handler import KeyboardBuffer, Quit
+from manager import KeyManager, MouseManager, StateManager, ObjetManager, HandlerManager, HUDManager
 from manager.notification_manager import Notification, NotificationManager
 from screen import Display
 
@@ -19,8 +19,14 @@ class Basis:
         self.objet_manager = ObjetManager()
         self.state_manager = StateManager(self.mouse_manager, self.display)
         self.keyboard_buffer = KeyboardBuffer()
-        self.handler_manager = HandlerManager().add(self.mouse_manager).add(self.key_manager).add(self.keyboard_buffer)
+        self.handler_manager = HandlerManager()
         self.notification_manager = NotificationManager(self.display)
+        self.handler_manager\
+            .add(self.mouse_manager) \
+            .add(self.key_manager) \
+            .add(self.keyboard_buffer) \
+            .add(Quit(self.shutdown)) \
+            .add(HUDManager(self.handler_manager, self.objet_manager))
 
     def shutdown(self):
         self.running = False
