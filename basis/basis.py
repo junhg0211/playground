@@ -28,6 +28,7 @@ class Basis:
 
     def tick(self):
         self.display.tick()
+        self.key_manager.tick()
         self.mouse_manager.tick()
         self.state_manager.tick()
         self.objet_manager.tick()
