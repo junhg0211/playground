@@ -2,8 +2,9 @@ from pygame import Surface
 
 from manager import MouseManager
 from screen import Display
-from state import GAME_INTRO, DESIGNER_LOBBY
+from state import GAME_INTRO, DESIGNER_LOBBY, DESIGNER_CHARACTER
 from state.designer import Lobby
+from state.designer.character import Character
 from state.game import Intro
 
 
@@ -25,6 +26,8 @@ class StateManager:
         if code == GAME_INTRO:
             self.state = Intro()
         elif code == DESIGNER_LOBBY:
-            self.state = Lobby(self.mouse_manager, self.display)
+            self.state = Lobby(self.mouse_manager, self, self.display)
+        elif code == DESIGNER_CHARACTER:
+            self.state = Character()
 
         return self
