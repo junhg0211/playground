@@ -6,3 +6,5 @@ CONSOLAB = './res/font/consolab.ttf'
 CONSOLAI = './res/font/consolai.ttf'
 # noinspection SpellCheckingInspection
 CONSOLAZ = './res/font/consolaz.ttf'
+# noinspection SpellCheckingInspection
+DALMOORI = './res/font/dalmoori.ttf'

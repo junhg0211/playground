@@ -1,40 +1,18 @@
-from pygame import Surface, display, init as pygame_init
-from pygame.event import get as event_get
+from basis import Basis
+from const import project
 
-from const import color, project
-from handler import Quit
-from manager import HandlerManager, KeyManager, StateManager
-from screen import Display
-from state import INTRO
+from state import GAME_INTRO
 
 
-class Game:
+class Game(Basis):
+    """Playground-게임의 Basis-입니다."""
+
     def __init__(self):
-        pygame_init()
-
-        self.running = False
-
-        self.display = Display(1920, 1080, project.NAME)
-
-        self.key_manager = KeyManager()
-        self.state_manager = StateManager().set_state(INTRO)
-
-        self.handler_manager = HandlerManager().add(Quit(self.shutdown)).add(self.key_manager)
+        super().__init__(1920, 1080, project.NAME)
+        self.state_manager.set_state(GAME_INTRO)
 
     def shutdown(self):
         self.running = False
-
-    def handle(self):
-        for event in event_get():
-            self.handler_manager.handle(event)
-
-    def tick(self):
-        pass
-
-    def render(self, surface: Surface):
-        surface.fill(color.WHITE)
-
-        display.flip()
 
     def start(self):
         self.running = True
